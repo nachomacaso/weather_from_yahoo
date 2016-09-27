@@ -1,0 +1,25 @@
+<h1>Yahoo! Weather for <%= @channel["location"]["city"] %>, <%= @channel["location"]["region"] %> </h1>
+
+<%= form_tag '/', method: :get do %>
+  <%= text_field_tag :city, nil, placeholder: "City" %>
+  <%= text_field_tag :state, nil, placeholder: "State" %>
+  <%= submit_tag 'Submit' %>
+<% end %>
+<br>
+<br>
+<table>
+  <tr>
+    <th>Date</th>
+    <th>High</th> 
+    <th>Low</th>
+    <th>Forecast</th>
+  </tr>
+  <% @channel["item"]["forecast"][0..4].each do |weather| %>
+      <tr>
+        <td><%= weather["date"] %></td>
+        <td><%= weather["high"] %>° <%= @channel["units"]["temperature"] %></td> 
+        <td><%= weather["low"] %>° <%= @channel["units"]["temperature"] %></td>
+        <td><%= weather["text"] %></td>
+      </tr>
+  <% end %>
+</table>
